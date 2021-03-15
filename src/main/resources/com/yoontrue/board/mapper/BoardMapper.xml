@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yoontrue.board.mapper.BoardMapper">
+
+<select id="list" resultType="com.yoontrue.board.vo.BoardVO">
+<!-- select * from (
+	select rownum rnum, b_no, b_title, b_id, b_date, b_view
+	from (
+		select b_no, b_title, b_id, b_date, b_view
+		from board
+		order by no desc
+	)
+)
+where rnum between #{startRow} and #{endRow}
+ -->
+
+SELECT * 
+FROM 
+( 
+  SELECT  
+      @rownum:=@rownum+1  rnum, b_no, b_title, b_id, b_date, b_view
+  FROM  
+      board,  
+      (SELECT @ROWNUM := 0) R 
+  WHERE  
+      1=1 
+) list
+where rnum between #{startRow} and #{endRow}
+</select>
+ 
+<select id="getCount" resultType="java.lang.Integer">
+select count(*) from board
+</select>
+
+<insert id="write">
+insert into board(b_id,b_title,b_content,b_date)
+values(#{b_id},#{b_title},#{b_content},now())
+</insert>
+</mapper>

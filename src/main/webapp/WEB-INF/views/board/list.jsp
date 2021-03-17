@@ -8,13 +8,29 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 리스트</title>
+
+<!-------- 부트스트랩,jQuery 라이브러리 -------->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-------- 부트스트랩,jQuery 라이브러리 -------->
+
+<style type="text/css">
+.dataRow:hover { 
+	background: #ddd;
+	cursor: pointer;
+}
+</style>
+
+<script type="text/javascript">
+	$(function() {
+		$(".dataRow").click(function() {
+			var b_no = $(this).find(".b_no").text();
+			location = "view.do?b_no=" + b_no + "&inc=1"
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -27,19 +43,21 @@
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
+			<!-- 데이터 없을 때 -->
 			<c:if test="${empty list }">
 			<tr>
 				<td colspan="5">데이터가 존재하지 않습니다.</td>
 			</tr>
 			</c:if>
+			<!-- 데이터 있을 때 -->
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="vo">
 					<tr class="dataRow">
-						<td class="no">${vo.b_no }</td>
-						<td class="title">${vo.b_title }</td>
-						<td class="id">${vo.b_id }</td>
-						<td class="date"><fmt:formatDate value="${vo.b_date }" pattern="yyyy.MM.dd"/></td>
-						<td class="view">${vo.b_view }</td>
+						<td class="b_no">${vo.b_no }</td>
+						<td>${vo.b_title }</td>
+						<td>${vo.b_id }</td>
+						<td><fmt:formatDate value="${vo.b_date }" pattern="yyyy.MM.dd"/></td>
+						<td>${vo.b_view }</td>
 					</tr>
 				</c:forEach>
 			</c:if>

@@ -4,38 +4,54 @@
 
 <mapper namespace="com.yoontrue.board.mapper.BoardMapper">
 
+<!-- 1리스트 출력용 select -->
 <select id="list" resultType="com.yoontrue.board.vo.BoardVO">
-<!-- select * from (
-	select rownum rnum, b_no, b_title, b_id, b_date, b_view
-	from (
-		select b_no, b_title, b_id, b_date, b_view
-		from board
-		order by no desc
-	)
-)
-where rnum between #{startRow} and #{endRow}
- -->
-
-SELECT * 
-FROM 
-( 
-  SELECT  
-      @rownum:=@rownum+1  rnum, b_no, b_title, b_id, b_date, b_view
-  FROM  
-      board,  
-      (SELECT @ROWNUM := 0) R 
-  WHERE  
-      1=1 
-) list
-where rnum between #{startRow} and #{endRow}
+<![CDATA[
+SELECT *
+FROM(
+	SELECT @rownum := @rownum + 1 rnum, b_no, b_title, b_id, b_date, b_view
+	FROM board,( SELECT @ROWNUM := 0 ) R
+	ORDER BY b_no DESC
+	) SUB
+WHERE rnum BETWEEN #{startRow} and #{endRow}
+]]>
 </select>
  
-<select id="getCount" resultType="java.lang.Integer">
+<!-- 2총 게시물 수 -->
+<select id="getRow" resultType="java.lang.Integer">
 select count(*) from board
 </select>
 
+<!-- 3글보기 -->
+<select id="view" resultType="com.yoontrue.board.vo.BoardVO">
+SELECT b_no, b_title, b_content, b_id, b_date, b_view
+FROM board
+WHERE b_no = #{b_no}
+</select>
+
+<!-- 4조회수증가 -->
+<update id="increase">
+UPDATE board
+SET b_view = b_view + 1
+WHERE b_no = #{b_no}
+</update>
+
+<!-- 5글쓰기 insert -->
 <insert id="write">
 insert into board(b_id,b_title,b_content,b_date)
 values(#{b_id},#{b_title},#{b_content},now())
 </insert>
+
+<!-- 6글수정 -->
+<update id="update">
+UPDATE board
+SET b_title = #{b_title}, b_content = #{b_content}, b_id = #{b_id}
+WHERE b_no = #{b_no}
+</update>
+
+<!-- 7삭제 -->
+<delete id="delete">
+DELETE FROM board
+WHERE b_no = #{b_no}
+</delete>
 </mapper>

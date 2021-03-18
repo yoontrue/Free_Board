@@ -12,7 +12,7 @@ public interface BoardMapper {
 	public List<BoardVO> list(PageObject pageObject);
 	
 	// 2게시물 수
-	public Integer getRow();
+	public Integer getRow(PageObject pageObject);
 	
 	// 3게시판 글보기
 	public BoardVO view(int b_no);

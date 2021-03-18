@@ -24,6 +24,7 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardVO> list(PageObject pageObject) {
 		// TODO Auto-generated method stub
 		log.info("----- 게시판 리스트 service -----");
+		pageObject.setTotalRow(mapper.getRow(pageObject));
 		log.info(pageObject);
 		return mapper.list(pageObject);
 	}

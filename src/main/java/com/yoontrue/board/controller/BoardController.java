@@ -26,7 +26,6 @@ public class BoardController {
 	// 리스트
 	@GetMapping("/list.do")
 	public String list(Model model,PageObject pageObject) {
-		System.out.println("보드컨트롤러_리스트()");
 		// model.~는 request에 값 담은거..jsp에서 꺼내쓸 때 el태그로..
 		model.addAttribute("list", service.list(pageObject));
 		return MODULE_NAME + "/list";

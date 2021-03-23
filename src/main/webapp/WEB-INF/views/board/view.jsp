@@ -13,14 +13,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-------- 부트스트랩,jQuery 라이브러리 -------->
 <script type="text/javascript">
-$(function(){
+$(function() {
+	/* 
+	<c:if test="${processResult == 'update success'}">
+		alert("수정 완료 되었습니다.");
+	</c:if>
+	 */
 	$("#deleteBtn").click(function(){
 		// 나중에 아이디 입력 대신 현재 로그인한 세션 id로 바꿔줄것..
 		var id = prompt("본인 아이디 입력:");
 		
 		if(id == $("#deleteID").val()) {
 			$("#deleteForm").submit();
-			alert("삭제되었습니다.");
 			return;
 		}
 		alert("작성자만 삭제할 수 있습니다.");
@@ -42,6 +46,10 @@ $(function(){
 <tr>
 	<th>제목</th>
 	<td>${vo.b_title }</td>
+</tr>
+<tr>
+	<th>이미지</th>
+	<td><img src="${vo.fileName }" style="height: 200px;" /></td>
 </tr>
 <tr>
 	<th>내용</th>
@@ -73,7 +81,8 @@ $(function(){
 <!-- 삭제용 폼 -->
 <form action="delete.do" method="post" id="deleteForm">
 	<input type="hidden" name="b_no" value="${vo.b_no}" />
-	<input type="hidden" name="b_id" value="${vo.b_id}" id="deleteID"/>
+	<input type="hidden" name="b_id" value="${vo.b_id}" id="deleteID" />
+	<input type="hidden" name="fileName" id="fileName" />
 </form>
 </body>
 </html>

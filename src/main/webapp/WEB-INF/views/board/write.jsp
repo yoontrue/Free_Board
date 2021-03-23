@@ -24,7 +24,7 @@
 <body>
 	<div class="container">
 		<h2>게시글 작성</h2>
-		<form method="post" class="form-group">
+		<form method="post" class="form-group" enctype="multipart/form-data">
 			<table class="table">
 				<tr>
 					<th>제목</th>
@@ -42,6 +42,10 @@
 					<td><input type="text" class="form-control" id="id"
 						name="b_id" required="required" pattern="[a-zA-Z0-9]{2,15}"
 						maxlength="15" /></td>
+				</tr>
+				<tr>
+					<th>파일첨부</th>
+					<td><input type="file" class="form-control" id="imageFile" name="imageFile" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">

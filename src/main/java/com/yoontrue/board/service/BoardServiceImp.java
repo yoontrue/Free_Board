@@ -33,11 +33,13 @@ public class BoardServiceImp implements BoardService{
 	public BoardVO view(int b_no, int inc) {
 		// 조회수증가 > 데이터 가져올것
 		if(inc == 1) mapper.increase(b_no); //update
+		log.info("----- 상세페이지 -----");
 		return mapper.view(b_no); // selectOne
 	}
 
 	@Override
 	public void write(BoardVO vo) {
+		log.info("----- 글 작성했다! -----");
 		mapper.write(vo);
 	}
 

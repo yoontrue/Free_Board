@@ -8,7 +8,7 @@
 <select id="list" resultType="com.yoontrue.board.vo.BoardVO">
 SELECT *
 FROM(
-	SELECT @rownum := @rownum + 1 rnum, b_no, b_title, b_id, b_date, b_view
+	SELECT @rownum := @rownum + 1 rnum, b_no, b_title, b_id, b_date, b_view, fileName
 	FROM board,( SELECT @ROWNUM := 0 ) R
 	<include refid="search" />
 	ORDER BY b_no DESC
@@ -30,17 +30,17 @@ SELECT COUNT(*) FROM board
 			만듬 -->
 		<if test="key == 't'.toString()">
 			<!-- concat(문자열, 문자열) : 2개만 연결, "||" : 문자열 이어 붙이는 연산자 -->
-			or b_title like '%'||#{word}||'%'
+			or b_title like concat('%',#{word},'%')
 		</if>
 		<if test="key == 'c'.toString()">
-			or b_content like '%'||#{word}||'%'
+			or b_content like concat('%',#{word},'%')
 		</if>
 		<if test="key == 'w'.toString()">
-			or b_id like '%'||#{word}||'%'
+			or b_id like concat('%',#{word},'%')
 		</if>
 		<if test="key == 'tc'.toString()">
-			or b_title like '%'||#{word}||'%'
-			or b_content like '%'||#{word}||'%'
+			or b_title like concat('%',#{word},'%')
+			or b_content like concat('%',#{word},'%')
 		</if>
 		)
 	</if>
@@ -49,7 +49,7 @@ SELECT COUNT(*) FROM board
 
 <!-- 3글보기 -->
 <select id="view" resultType="com.yoontrue.board.vo.BoardVO">
-SELECT b_no, b_title, b_content, b_id, b_date, b_view
+SELECT b_no, b_title, b_content, b_id, b_date, b_view, fileName
 FROM board
 WHERE b_no = #{b_no}
 </select>
@@ -63,14 +63,20 @@ WHERE b_no = #{b_no}
 
 <!-- 5글쓰기 insert -->
 <insert id="write">
-insert into board(b_id,b_title,b_content,b_date)
-values(#{b_id},#{b_title},#{b_content},now())
+insert into board(b_id,b_title,b_content,b_date,fileName)
+values(#{b_id},#{b_title},#{b_content},now(), #{fileName})
 </insert>
 
-<!-- 6글수정 -->
+<!-- 6 글수정 -->
 <update id="update">
 UPDATE board
 SET b_title = #{b_title}, b_content = #{b_content}, b_id = #{b_id}
+WHERE b_no = #{b_no}
+</update>
+<!-- 6-1 파일수정 -->
+<update id="updateFile">
+UPDATE board
+SET fileName = #{fileName}
 WHERE b_no = #{b_no}
 </update>
 

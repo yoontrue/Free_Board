@@ -25,6 +25,14 @@
 
 <script type="text/javascript">
 	$(function() {
+		<c:if test="${processResult == 'write success'}">
+			alert("작성 완료 되었습니다.");
+		</c:if>
+		
+		<c:if test="${processResult == 'delete success'}">
+			alert("삭제 완료 되었습니다.");
+		</c:if>
+		
 		$(".dataRow").click(function() {
 			var b_no = $(this).find(".b_no").text();
 			location = "view.do?b_no=" + b_no + "&inc=1"
@@ -59,7 +67,7 @@
 				<c:forEach items="${list }" var="vo">
 					<tr class="dataRow">
 						<td class="b_no">${vo.b_no }</td>
-						<td>${vo.b_title }</td>
+						<td>${vo.b_title }&nbsp;&nbsp;<img src="${vo.fileName }" style="height: 15px;" /></td>
 						<td>${vo.b_id }</td>
 						<td><fmt:formatDate value="${vo.b_date }" pattern="yyyy.MM.dd"/></td>
 						<td>${vo.b_view }</td>

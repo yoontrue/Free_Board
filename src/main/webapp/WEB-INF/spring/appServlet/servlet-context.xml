@@ -14,11 +14,22 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/upload/**" location="/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="maxUploadSize" value="1048575600" />
+		<beans:property name="maxUploadSizePerFile" value="20971520" />
+		<!-- Mac OS 전용으로 경로 설정 해놨으니, 윈도우에서 쓸 땐 바꿀것! -->
+		<beans:property name="uploadTempDir" value="/Users/summeryoon/upload/tmp" />
+		<beans:property name="maxInMemorySize" value="10485756" />
 	</beans:bean>
 	
 	<context:component-scan base-package="com.yoontrue" />

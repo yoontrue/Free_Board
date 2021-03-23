@@ -1,5 +1,10 @@
 package com.yoontrue.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -7,13 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yoontrue.board.service.BoardService;
 import com.yoontrue.board.vo.BoardVO;
+import com.yoontrue.util.FileUtil;
 
+import lombok.extern.log4j.Log4j;
 import net.webjjang.util.PageObject;
 
 @Controller
+@Log4j
 @RequestMapping("/board")
 public class BoardController {
 	
@@ -38,9 +48,31 @@ public class BoardController {
 	}
 	// 입력처리(Post)
 	@PostMapping("/write.do")
-	public String write(BoardVO vo) {
-		System.out.println("BoardController.write()");
+	public String write(BoardVO vo, MultipartFile imageFile, RedirectAttributes ra, HttpServletRequest request) throws IllegalStateException, IOException {
+		String path = "/upload/image/";
+		String realPath = request.getServletContext().getRealPath(path);
+		System.out.println(realPath);
+		
+		String fileName = imageFile.getOriginalFilename();
+		
+		// 저장하려는 파일시스템의 실제 위치와 파일명
+		String saveFileName = FileUtil.checkDuplicate(realPath + fileName);
+		System.out.println(saveFileName);
+		
+		// 실제적으로 실제위치와 파일명으로 저장해야 한다. 
+		// request안에 data로 담겨있는 파일 내용을 실제적인 파일로 저장
+		imageFile.transferTo(new File(saveFileName));
+		
+		// 서버에 올라간 파일명만 가져옴 - path 없음..
+		String uploadFileName = saveFileName.substring(saveFileName.lastIndexOf("/")+1);
+		
+		// 이게 DB에 저장되는 거 (path + 파일명)
+		vo.setFileName(path + uploadFileName);
 		service.write(vo);
+		
+		// 글쓰기 정상처리 됐다는 표시 할 거
+		ra.addFlashAttribute("processResult", "write success");
+		
 		return "redirect:list.do";
 	}
 	// 상세페이지
@@ -58,14 +90,18 @@ public class BoardController {
 	}
 	// 수정처리(Post)
 	@PostMapping("/update.do")
-	public String update(BoardVO vo) {
+	public String update(BoardVO vo, RedirectAttributes ra) {
 		service.update(vo);
+		// 수정 완료 메세지 날려줄거.
+		ra.addFlashAttribute("processResult", "update success");
 		return "redirect:view.do?b_no=" + vo.getB_no() + "&inc=0";
 	}
-	// 삭제(Get)
+	// 삭제(Post)
 	@PostMapping("/delete.do")
-	public String delete(BoardVO vo) {
+	public String delete(BoardVO vo, RedirectAttributes ra) {
 		service.delete(vo);
+		// 삭제 완료 메세지 날려줄거.
+		ra.addFlashAttribute("processResult", "delete success");
 		return "redirect:list.do";
 	}
 }

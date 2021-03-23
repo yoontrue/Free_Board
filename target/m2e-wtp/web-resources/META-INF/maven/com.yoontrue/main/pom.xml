@@ -62,7 +62,6 @@
    <groupId>log4j</groupId>
    <artifactId>log4j</artifactId>
    <version>1.2.17</version>
-   <!-- lombok과 log4j 같이 사용하면 오류나서 주석처리함.
    <exclusions>
     <exclusion>
      <groupId>javax.mail</groupId>
@@ -81,8 +80,7 @@
      <artifactId>jmxri</artifactId>
     </exclusion>
    </exclusions>
-   <scope>runtime</scope>
-    -->
+   <!-- <scope>runtime</scope> -->
   </dependency>
   
   <dependency>

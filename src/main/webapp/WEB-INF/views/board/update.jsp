@@ -23,7 +23,7 @@ $(function() {
 </head>
 <body>
 	<div class="container">
-		<h2>게시글 수정</h2>
+		<h2>&nbsp;</h2>
 		<form method="post" class="form-group">
 			<table class="table">
 				<tr>

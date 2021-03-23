@@ -23,13 +23,13 @@
 </head>
 <body>
 	<div class="container">
-		<h2>게시글 작성</h2>
+		<h2>&nbsp;</h2>
 		<form method="post" class="form-group" enctype="multipart/form-data">
 			<table class="table">
 				<tr>
 					<th>제목</th>
 					<td><input type="text" class="form-control" id="title"
-						name="b_title" required="required" pattern=".{2,30}"
+						name="b_title" required="required" pattern=".{1,30}"
 						maxlength="30" /></td>
 				</tr>
 				<tr>
@@ -40,7 +40,7 @@
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" class="form-control" id="id"
-						name="b_id" required="required" pattern="[a-zA-Z0-9]{2,15}"
+						name="b_id" required="required" pattern=".{2,15}" placeholder="2~15자"
 						maxlength="15" /></td>
 				</tr>
 				<tr>

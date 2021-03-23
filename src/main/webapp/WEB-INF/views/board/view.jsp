@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,51 +35,71 @@ $(function() {
 	});
 });
 </script>
+<style>
+.writer {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.title {
+    font-family: 'SDSamliphopangche_Outline';
+    font-size: 30px;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.hit, .write_date{
+	color: #8a8a8a;
+}
+</style>
 </head>
 <body>
-<div class="container">
-<h1>게시판 글보기</h1>
-<table class="table">
-<tr>
-	<th>번호</th>
-	<td>${vo.b_no }</td>
-</tr>
-<tr>
-	<th>제목</th>
-	<td>${vo.b_title }</td>
-</tr>
-<tr>
-	<th>이미지</th>
-	<td><img src="${vo.fileName }" style="height: 200px;" /></td>
-</tr>
-<tr>
-	<th>내용</th>
-	<td><pre style="border:none">${vo.b_content }</pre></td>
-</tr>
-<tr>
-	<th>작성자</th>
-	<td>${vo.b_id }</td>
-</tr>
-<tr>
-	<th>작성일</th>
-	<td>
-		<fmt:formatDate value="${vo.b_date }" pattern="yyyy.MM.dd"/>
-	</td>
-</tr>
-<tr>
-	<th>조회수</th>
-	<td>${vo.b_view }</td>
-</tr>
-<tr>
-	<td colspan="2">
-		<a href="update.do?b_no=${vo.b_no }" class="btn btn-default">수정</a>
-		<a href="#" class="btn btn-default" id="deleteBtn">삭제</a>
-		<a href="list.do" class="btn btn-default">리스트</a>
-	</td>
-</tr>
-</table>
-</div>
-<!-- 삭제용 폼 -->
+	<div class="container">
+		<h2>&nbsp;</h2>
+
+		<table class="table">
+			<tr>
+				<th class="title">${vo.b_title }</th>
+			</tr>
+			<tr>
+				<td>
+					<span class="writer">${vo.b_id }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="hit">조회 ${vo.b_view }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="write_date"><fmt:formatDate value="${vo.b_date }" pattern="yyyy.MM.dd" /></span>
+				</td>
+			</tr>
+			<c:if test="${!empty vo.fileName }">
+				<tr>
+					<td><img src="${vo.fileName }" style="height: 200px;" /></td>
+				</tr>
+			</c:if>
+			<tr>
+				<td>
+					<pre style="border: none">${vo.b_content }</pre>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><a href="update.do?b_no=${vo.b_no }"
+					class="btn btn-default">수정</a> <a href="#" class="btn btn-default"
+					id="deleteBtn">삭제</a> <a href="list.do" class="btn btn-default">리스트</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 삭제용 폼 -->
 <form action="delete.do" method="post" id="deleteForm">
 	<input type="hidden" name="b_no" value="${vo.b_no}" />
 	<input type="hidden" name="b_id" value="${vo.b_id}" id="deleteID" />

@@ -42,19 +42,19 @@
 </head>
 <body>
 	<div class="container">
-		<h2>게시판 리스트</h2>
+		<h2>&nbsp;</h2>
 		<table class="table">
 			<tr>
-				<td colspan="5">
+				<td colspan="5"  style="border-top-style: none;">
 					<a href="write.do" class="btn btn-default">글쓰기</a>
 				</td>
 			</tr>
 			<tr>
-				<th>글번호</th>
-				<th>제목</th>
-				<th>글쓴이</th>
-				<th>작성일</th>
-				<th>조회수</th>
+				<th style="width:10%;">글번호</th>
+				<th style="width:60%;">제목</th>
+				<th style="width:10%;">글쓴이</th>
+				<th style="width:10%;">작성일</th>
+				<th style="width:10%;">조회수</th>
 			</tr>
 			<!-- 데이터 없을 때 -->
 			<c:if test="${empty list }">

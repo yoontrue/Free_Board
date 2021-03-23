@@ -9,7 +9,8 @@ b_id varchar(15) not null,
 b_title varchar(50) not null,
 b_content varchar(1000) not null,
 b_date date not null,
-b_view int not null default 0 );
+b_view int not null default 0,
+fileName varchar(100) );
 
 create table comment(
 c_no int auto_increment primary key,

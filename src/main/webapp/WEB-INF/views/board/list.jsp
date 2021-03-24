@@ -50,11 +50,11 @@
 				</td>
 			</tr>
 			<tr>
-				<th style="width:10%;">글번호</th>
-				<th style="width:60%;">제목</th>
-				<th style="width:10%;">글쓴이</th>
+				<th style="width:5%;">글번호</th>
+				<th style="width:65%;">제목</th>
+				<th style="width:15%;">글쓴이</th>
 				<th style="width:10%;">작성일</th>
-				<th style="width:10%;">조회수</th>
+				<th style="width:5%;">조회수</th>
 			</tr>
 			<!-- 데이터 없을 때 -->
 			<c:if test="${empty list }">

@@ -45,7 +45,7 @@ $(function() {
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" class="form-control" id="id"
-						name="b_id" required="required" pattern="[a-zA-Z0-9]{2,15}"
+						name="b_id" required="required" pattern=".{2,15}"
 						maxlength="15" value="${vo.b_id}" /></td>
 				</tr>
 				<tr>

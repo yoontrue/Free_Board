@@ -5,7 +5,6 @@
 -- db : free_board
 
 
-
 drop table member;
 drop table board;
 drop table comment;
@@ -57,3 +56,5 @@ insert into board(b_id,b_title,b_content,b_date,fileName) values('아이유','�
 insert into board(b_id,b_title,b_content,b_date,fileName) values('IU','차는 역시 녹차','이파리 녹차로 우려먹음 존맛인데!',now(), '/upload/image/teaa.jpg');
 insert into board(b_id,b_title,b_content,b_date,fileName) values('jeje','레고 사고파','이번에 해리포터 에디션 오지던디..',now(), '/upload/image/toy.jpg');
 insert into board(b_id,b_title,b_content,b_date,fileName) values('han','겨울 끝','봄 시작. 황사도 시작. 미세먼지 오짐...',now(), '/upload/image/winter.jpg');
+insert into board(b_id,b_title,b_content,b_date,fileName) values('로드리','추워','덜덜? 덜더러덜덜. 어유...',now(), '/upload/image/winter.jpg');
+insert into board(b_id,b_title,b_content,b_date,fileName) values('애플이','춥다춥다리','가나다라마바사아자차카타파하',now(), '/upload/image/winter.jpg');

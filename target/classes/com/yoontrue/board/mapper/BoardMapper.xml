@@ -4,7 +4,7 @@
 
 <mapper namespace="com.yoontrue.board.mapper.BoardMapper">
 
-<!-- 1리스트 출력용 select (검색 적용 시켜야함) -->
+<!-- 1리스트 출력용 select -->
 <select id="list" resultType="com.yoontrue.board.vo.BoardVO">
 SELECT *
 FROM(
@@ -85,6 +85,5 @@ WHERE b_no = #{b_no}
 DELETE FROM board
 WHERE b_no = #{b_no}
 </delete>
-
 
 </mapper>
